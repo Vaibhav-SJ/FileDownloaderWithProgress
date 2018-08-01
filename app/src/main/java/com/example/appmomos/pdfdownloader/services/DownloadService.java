@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
-import android.os.Binder;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -33,10 +33,10 @@ public class DownloadService extends Service
 
     static DownloadFileAsync downloadFileAsync;
 
-    IBinder mBinder = new LocalBinder();
+   // IBinder mBinder = new LocalBinder();
 
 
-    @Override
+   /* @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
     }
@@ -60,9 +60,27 @@ public class DownloadService extends Service
             downloadFileAsync = (DownloadFileAsync) new DownloadFileAsync().execute(urlLink);
         }
 
+    }*/
+
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
+        if(intent != null)
+        {
+            urlLink = intent.getStringExtra("urlLink");
+            fileName = urlLink.substring(urlLink.lastIndexOf('/') + 1);
+            downloadFileAsync = (DownloadFileAsync) new DownloadFileAsync().execute(urlLink);
+        }
+        return super.onStartCommand(intent, flags, startId);
+    }
 
     // Dialog to  pdf Download progress
     @SuppressLint("StaticFieldLeak")
@@ -94,22 +112,19 @@ public class DownloadService extends Service
                 while ((count = input.read(data)) != -1)
                 {
                     //Checking Wifi or mobile connectivity
-                    do
-                    {
-                        if(isInternetOn())
-                        {
-                            if (isCancelled())
-                                break;
-                            total += count;
-                            publishProgress(""+(int)((total*100)/lenghtOfFile));
-                            output.write(data, 0, count);
-                        }
-                        else
-                        {
-                            Thread.sleep(3000);
-                        }
 
-                    }while(isInternetOn());
+                    if(isInternetOn())
+                    {
+                        if (isCancelled())
+                            break;
+                        total += count;
+                        publishProgress(""+(int)((total*100)/lenghtOfFile));
+                        output.write(data, 0, count);
+                    }
+                    else
+                    {
+                        Thread.sleep(2000);
+                    }
                 }
 
                 output.flush();

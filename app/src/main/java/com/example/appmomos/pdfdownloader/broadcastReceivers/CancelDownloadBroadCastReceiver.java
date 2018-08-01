@@ -3,11 +3,8 @@ package com.example.appmomos.pdfdownloader.broadcastReceivers;
 import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
@@ -20,8 +17,8 @@ public class CancelDownloadBroadCastReceiver extends BroadcastReceiver
 
     NotificationCompat.Builder builder;
     NotificationManager notificationmanager;
-    DownloadService downloadService;
-    boolean mBounded;
+    //DownloadService downloadService;
+   // boolean mBounded;
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -34,14 +31,14 @@ public class CancelDownloadBroadCastReceiver extends BroadcastReceiver
                 DownloadService.cancelDownloadFun();
                 Activity1.updateTextViewFun("Download Cancelled.");
 
-                try {
+               /* try {
                     context.unbindService(mConnection);
                 }
                 catch (Exception ignored)
                 {
 
                 }
-                mBounded = false;
+                mBounded = false;*/
                 Toast.makeText(context, "Download Cancelled.", Toast.LENGTH_SHORT).show();
                 context.stopService(new Intent(context, DownloadService.class));
             }
@@ -80,7 +77,7 @@ public class CancelDownloadBroadCastReceiver extends BroadcastReceiver
     }
 
 
-    ServiceConnection mConnection = new ServiceConnection()
+   /* ServiceConnection mConnection = new ServiceConnection()
     {
         @Override
         public void onServiceDisconnected(ComponentName name)
@@ -96,7 +93,7 @@ public class CancelDownloadBroadCastReceiver extends BroadcastReceiver
             DownloadService.LocalBinder mLocalBinder = (DownloadService.LocalBinder)service;
             downloadService = mLocalBinder.getServerInstance();
         }
-    };
+    };*/
 
 
 

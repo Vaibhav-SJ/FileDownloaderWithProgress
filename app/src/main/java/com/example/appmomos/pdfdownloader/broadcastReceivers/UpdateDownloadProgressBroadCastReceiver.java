@@ -91,7 +91,7 @@ public class UpdateDownloadProgressBroadCastReceiver extends BroadcastReceiver
                     // Set Title
                     .setContentTitle("Download Completed.")
                     // Set Text
-                    .setContentText(message+"%")
+                    .setContentText("100%")
                     .setProgress(100, 100, false)
                     // Add an Action Button below Notification
                     // .addAction(R.drawable.ic_launcher_background, "Cancel", cancelDownloadIntent)

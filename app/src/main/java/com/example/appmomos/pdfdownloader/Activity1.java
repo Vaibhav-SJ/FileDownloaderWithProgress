@@ -2,12 +2,9 @@ package com.example.appmomos.pdfdownloader;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -29,14 +26,13 @@ public class Activity1 extends AppCompatActivity
     static TextView textView;
 
     //Pdf File Download
-    String urlLink = "http://appmomos.com/walna_latest/system/storage/download/MPL_2017_low-res.pdf";
-    // String urlLink = "https://www.tutorialspoint.com/java/java_tutorial.pdf";
+     String urlLink = "http://appmomos.com/walna_latest/system/storage/download/MPL_2017_low-res.pdf";
+   // String urlLink = "https://www.tutorialspoint.com/java/java_tutorial.pdf";
    // String urlLink = "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2017/12/xx-1512970816.jpg";
     String fileName;
 
 
-    DownloadService downloadService;
-    boolean mBounded;
+    //DownloadService downloadService;
 
 
     @Override
@@ -57,7 +53,7 @@ public class Activity1 extends AppCompatActivity
             {
                 Intent i = new Intent(Activity1.this, DownloadService.class);
                 i.putExtra("urlLink",urlLink);
-                bindService(i, mConnection, BIND_AUTO_CREATE);
+               // bindService(i, mConnection, BIND_AUTO_CREATE);
                 startService(i);
 
                 textView.setVisibility(View.VISIBLE);
@@ -70,24 +66,24 @@ public class Activity1 extends AppCompatActivity
 
     }
 
+/*
 
     ServiceConnection mConnection = new ServiceConnection()
     {
         @Override
         public void onServiceDisconnected(ComponentName name)
         {
-            mBounded = false;
             downloadService = null;
         }
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service)
         {
-            mBounded = true;
             DownloadService.LocalBinder mLocalBinder = (DownloadService.LocalBinder)service;
             downloadService = mLocalBinder.getServerInstance();
         }
     };
+*/
 
 
 
