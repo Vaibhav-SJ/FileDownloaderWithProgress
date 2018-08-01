@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">PDFDownloader</string>
+    <string name="pdfDownloadedMsg">Pdf Downloaded Successfully and Stored in  </string>
+    <string name="sdcardPermissionError">Downloading Failed, Check the Internet and Storage Permission </string>
+    <string name="notificationtitle">this is title</string>
+</resources>
